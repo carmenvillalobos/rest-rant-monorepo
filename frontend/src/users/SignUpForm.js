@@ -15,7 +15,7 @@ function SignUpForm() {
 	async function handleSubmit(e) {
 		e.preventDefault()
 
-		await fetch(`http://localhost:5000/users/`, {
+		await fetch(`http://localhost:5433/users/`, {
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json'
@@ -80,7 +80,6 @@ function SignUpForm() {
 						/>
 					</div>
 				</div>
-  
 				<input className="btn btn-primary" type="submit" value="Sign Up" />
 			</form>
 		</main>
