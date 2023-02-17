@@ -13,7 +13,7 @@ function PlaceDetails() {
 
 	useEffect(() => {
 		const fetchData = async () => {
-			const response = await fetch(`http://localhost:5000/places/${placeId}`)
+			const response = await fetch(`http://localhost:5433/places/${placeId}`)
 			const resData = await response.json()
 			setPlace(resData)
 		}
@@ -29,15 +29,16 @@ function PlaceDetails() {
 	}
 
 	async function deletePlace() {
-		await fetch(`http://localhost:5000/places/${place.placeId}`, {
+		await fetch(`http://localhost:5433/places/${place.placeId}`, {
 			method: 'DELETE'
 		})
 		history.push('/places')
 	}
 
 	async function deleteComment(deletedComment) {
-		await fetch(`http://localhost:5000/places/${place.placeId}/comments/${deletedComment.commentId}`, {
-			method: 'DELETE'
+		await fetch(`http://localhost:5433/places/${place.placeId}/comments/${deletedComment.commentId}`, {
+			method: 'DELETE',
+			credentials: 'include'
 		})
 
 		setPlace({
@@ -48,8 +49,9 @@ function PlaceDetails() {
 	}
 
 	async function createComment(commentAttributes) {
-		const response = await fetch(`http://localhost:5000/places/${place.placeId}/comments`, {
+		const response = await fetch(`http://localhost:5433/places/${place.placeId}/comments`, {
 			method: 'POST',
+			credentials: 'include',
 			headers: {
 				'Content-Type': 'application/json'
 			},
@@ -57,6 +59,7 @@ function PlaceDetails() {
 		})
 
 		const comment = await response.json()
+		console.log('comment from server: ', comment)
 
 		setPlace({
 			...place,
